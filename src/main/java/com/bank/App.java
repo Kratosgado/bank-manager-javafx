@@ -1,5 +1,3 @@
-
-
 package com.bank;
 
 import javafx.application.Application;
@@ -8,27 +6,32 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-/**
- * App
- */
 public class App extends Application {
+    public static Navigator navigator ;
+    // private Stage stage;
+
+
+    @Override
+    public void start(Stage primaryStage) {
+        navigator = new Navigator(primaryStage);
+        this.initializeApp();
+    }    
+
+    private void initializeApp() {
+        Button loginButton = new Button("Go to Login Screen");
+        loginButton.setOnAction(event -> {
+            LoginScreen loginScreen = new LoginScreen(new StackPane());
+            navigator.pushScreen("Login Screen", loginScreen);
+        });
+
+        StackPane root = new StackPane();
+        root.getChildren().add(loginButton);
+
+        final Scene scene = new Scene(root);
+        navigator.pushScreen("Home", scene);
+    }
 
     public static void main(String[] args) {
         launch(args);
     }
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        Button btn = new Button("Click me");
-        btn.setOnAction(event -> btn.setText("You clicked me!"));
-
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-
-        Scene scene = new Scene(root, 1080, 720);
-
-        primaryStage.setTitle("Bank Management System");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-    
 }
