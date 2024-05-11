@@ -12,12 +12,13 @@ public class LoginScreen extends Scene {
 
     public LoginScreen(Parent parent) {
         super(parent);
-
+        this.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         VBox vBox = new VBox(10);
         vBox.setPadding(new Insets(10));
 
         TextField usernameField = new TextField();
         usernameField.setPromptText("Username");
+        usernameField.getStyleClass().add("username-field");
 
         PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("Password");
