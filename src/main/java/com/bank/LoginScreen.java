@@ -6,13 +6,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class LoginScreen extends Scene {
 
     public LoginScreen(Parent parent) {
         super(parent);
-        
+
         this.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         VBox vBox = new VBox(10);
         vBox.setPadding(new Insets(10));
@@ -32,7 +33,10 @@ public class LoginScreen extends Scene {
             String username = usernameField.getText();
             String password = passwordField.getText();
             System.out.println("Username: " + username);
-            System.out.println("Password: " + password);
+
+            // navigate to dashboard screen
+            DashboardScreen dashboardScreen = new DashboardScreen(new Pane());
+            App.navigator.pushScreen("Dashboard", dashboardScreen);
         });
 
         vBox.getChildren().addAll(usernameField, passwordField, loginButton);
