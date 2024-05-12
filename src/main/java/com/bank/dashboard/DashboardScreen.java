@@ -1,4 +1,4 @@
-package com.bank;
+package com.bank.dashboard;
 
 import javafx.geometry.Insets;
 import javafx.scene.Parent;

@@ -1,5 +1,7 @@
 package com.bank;
 
+import com.bank.auth.LoginScreen;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

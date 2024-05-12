@@ -1,4 +1,7 @@
-package com.bank;
+package com.bank.auth;
+
+import com.bank.App;
+import com.bank.dashboard.DashboardScreen;
 
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
@@ -14,18 +17,18 @@ public class LoginScreen extends Scene {
     public LoginScreen(Parent parent) {
         super(parent);
 
-        this.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        // this.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         VBox vBox = new VBox(10);
         vBox.setPadding(new Insets(10));
         vBox.getStyleClass().add("root");
 
         TextField usernameField = new TextField();
         usernameField.setPromptText("Username");
-        usernameField.getStyleClass().add("username-field");
+        // usernameField.getStyleClass().add("username-field");
 
         PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("Password");
-        passwordField.getStyleClass().add("password-field");
+        // passwordField.getStyleClass().add("password-field");
 
         Button loginButton = new Button("Login");
         loginButton.getStyleClass().add("button");

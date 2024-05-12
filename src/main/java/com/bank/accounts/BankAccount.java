@@ -1,8 +1,8 @@
-package com.accounts;
+package com.bank.accounts;
 
 import java.util.HashMap;
 
-public class BankAccount extends BankAccountInterface {
+public class BankAccount {
     @Override
     public String toString() {
         return "BankAccount [numOfCustomerAccounts=" + numOfCustomerAccounts + ", moneyInAccount=" + moneyInAccount

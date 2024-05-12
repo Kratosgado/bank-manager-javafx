@@ -1,4 +1,4 @@
-package com.accounts;
+package com.bank.accounts;
 
 public class CustomerAccount {
     private final int accountNumber;
