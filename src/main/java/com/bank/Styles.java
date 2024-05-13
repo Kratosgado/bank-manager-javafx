@@ -5,7 +5,7 @@ public class Styles {
     public static final String TEXT_FIELD_STYLE = "-fx-font-size: 14px; -fx-padding: 10px; -fx-background-radius: 5px;";
     public static final String LABEL_STYLE = "-fx-font-size: 14px; -fx-font-weight: bold;";
     public static final String MENU_BAR_STYLE = "-fx-background-color: steelblue;";
-    public static final String MENU_STYLE = "-fx-font-size: 14px; -fx-font-weight: bold;";
+    public static final String MENU_STYLE = "-fx-font-size: 14px; -fx-font-weight: bold; -fx-border-radius: 5px; -fx-padding: 10px;";
     public static final String MENU_ITEM_STYLE = "-fx-font-size: 14px;";
     public static final String VBOX_STYLE = "-fx-spacing: 10; -fx-padding: 10;";
     public static final String GRID_PANE_STYLE = "-fx-padding: 10;";

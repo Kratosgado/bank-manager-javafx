@@ -20,8 +20,8 @@ public class DashboardScreen extends Scene {
 
         MenuItem addAccount = new MenuItem("Add Account");
         MenuItem viewAccounts = new MenuItem("View Accounts");
-        MenuItem logout = new MenuItem("Logout");
 
+        MenuItem logout = new MenuItem("Logout");
         menu.getItems().addAll(addAccount, viewAccounts, logout);
         menuBar.getMenus().add(menu);
         vBox.getChildren().add(menuBar);
