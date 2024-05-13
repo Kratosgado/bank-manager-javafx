@@ -1,8 +1,10 @@
 package com.bank;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Stack;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -50,5 +52,17 @@ public class Navigator {
 
     private Screen getCurrentScreen() {
         return screenStack.peek();
+    }
+
+    public void pushFXML(String fxml) {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        try {
+            final Scene scene = new Scene(fxmlLoader.load());
+            final Screen screen = new Screen(fxml, scene);
+            screenStack.push(screen);
+            this.showCurrentScreen();
+        } catch (Exception e) {
+        }
+
     }
 }

@@ -36,8 +36,8 @@ public class LoginScreen extends Scene {
             System.out.println("Username: " + username);
 
             // navigate to dashboard screen
-            DashboardScreen dashboardScreen = new DashboardScreen(new Pane());
-            App.navigator.pushScreen("Dashboard", dashboardScreen);
+            // DashboardScreen dashboardScreen = new DashboardScreen(new Pane());
+            App.navigator.pushFXML("mainpage");
         });
 
         vBox.getChildren().addAll(usernameField, passwordField, loginButton);
