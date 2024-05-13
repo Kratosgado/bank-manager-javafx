@@ -1,15 +1,7 @@
-/**
- * Sample Skeleton for 'loginscreen.fxml' Controller Class
- */
-
 package com.bank.auth;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import com.bank.App;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -17,21 +9,35 @@ import javafx.scene.control.TextField;
 
 public class LoginController {
 
-    @FXML // fx:id="loginButton"
-    private Button loginButton; // Value injected by FXMLLoader
-
-    @FXML // fx:id="passwordField"
-    private PasswordField passwordField; // Value injected by FXMLLoader
-
-    @FXML // fx:id="usernameField"
-    private TextField usernameField; // Value injected by FXMLLoader
+    @FXML
+    private ResourceBundle resources;
 
     @FXML
-    void handleLogin(ActionEvent event) {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-        System.out.println("Username: " + username);
-        App.navigator.pushFXML("dashboard");
+    private URL location;
+
+    @FXML
+    private Button login;
+
+    @FXML
+    private Button loginButton;
+
+    @FXML
+    private PasswordField password;
+
+    @FXML
+    private Button signupButton;
+
+    @FXML
+    private TextField username;
+
+    @FXML
+    void initialize() {
+        assert login != null : "fx:id=\"login\" was not injected: check your FXML file 'loginscreen.fxml'.";
+        assert loginButton != null : "fx:id=\"loginButton\" was not injected: check your FXML file 'loginscreen.fxml'.";
+        assert password != null : "fx:id=\"password\" was not injected: check your FXML file 'loginscreen.fxml'.";
+        assert signupButton != null : "fx:id=\"signupButton\" was not injected: check your FXML file 'loginscreen.fxml'.";
+        assert username != null : "fx:id=\"username\" was not injected: check your FXML file 'loginscreen.fxml'.";
+
     }
 
 }

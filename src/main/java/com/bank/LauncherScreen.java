@@ -11,7 +11,7 @@ public class LauncherScreen {
 
     @FXML
     void goToLoginScreen(ActionEvent event) {
-
+        App.navigator.pushFXML("loginScreen");
     }
 
 }

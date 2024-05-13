@@ -5,9 +5,6 @@ package com.bank;
 import atlantafx.base.theme.PrimerDark;
 // import atlantafx.base.theme.PrimerLight;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -25,18 +22,7 @@ public class App extends Application {
     }
 
     private void initializeApp() {
-        Button loginButton = new Button("Go to Login ");
-        loginButton.setOnAction(event -> {
-            // LoginScreen loginScreen = new LoginScreen(new StackPane());
-            navigator.pushFXML("laucher");
-
-        });
-
-        StackPane root = new StackPane();
-        root.getChildren().add(loginButton);
-
-        final Scene scene = new Scene(root);
-        navigator.pushScreen("Home", scene);
+        navigator.pushFXML("launcher");
     }
 
     public static void main(String[] args) {
