@@ -1,9 +1,9 @@
 package com.bank;
 
-import com.bank.auth.LoginScreen;
+// import com.bank.auth.LoginScreen;
 
 import atlantafx.base.theme.PrimerDark;
-import atlantafx.base.theme.PrimerLight;
+// import atlantafx.base.theme.PrimerLight;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,7 +16,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        // Application.setUserAgentStylesheet(new
+        // PrimerLight().getUserAgentStylesheet());
         Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
 
         navigator = new Navigator(primaryStage);
@@ -26,8 +27,9 @@ public class App extends Application {
     private void initializeApp() {
         Button loginButton = new Button("Go to Login ");
         loginButton.setOnAction(event -> {
-            LoginScreen loginScreen = new LoginScreen(new StackPane());
-            navigator.pushScreen("Login Screen", loginScreen);
+            // LoginScreen loginScreen = new LoginScreen(new StackPane());
+            navigator.pushFXML("laucher");
+
         });
 
         StackPane root = new StackPane();

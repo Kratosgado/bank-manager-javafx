@@ -57,11 +57,12 @@ public class Navigator {
     public void pushFXML(String fxml) {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         try {
-            final Scene scene = new Scene(fxmlLoader.load());
+            final Scene scene = fxmlLoader.load();
             final Screen screen = new Screen(fxml, scene);
             screenStack.push(screen);
             this.showCurrentScreen();
         } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
 
     }
