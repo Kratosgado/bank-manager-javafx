@@ -5,6 +5,7 @@ module com.bank {
     requires atlantafx.base;
 
     opens com.bank to javafx.fxml;
+    opens com.bank.auth to javafx.fxml;
 
     exports com.bank;
 }

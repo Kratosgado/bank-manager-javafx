@@ -6,6 +6,7 @@ import java.util.Stack;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class Navigator {
@@ -54,6 +55,21 @@ public class Navigator {
         return screenStack.peek();
     }
 
+    public void pushReplacement(String fxml) {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        try {
+            final Scene scene = fxmlLoader.load();
+            final Screen screen = new Screen(fxml, scene);
+            screenStack.pop();
+            screenStack.push(screen);
+            this.showCurrentScreen();
+        } catch (Exception e) {
+
+            System.err.println(e.getLocalizedMessage());
+        }
+
+    }
+
     public void pushFXML(String fxml) {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         try {
@@ -62,7 +78,7 @@ public class Navigator {
             screenStack.push(screen);
             this.showCurrentScreen();
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            System.err.println(e.getLocalizedMessage());
         }
 
     }
