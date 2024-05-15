@@ -1,5 +1,7 @@
 package com.bank.auth;
 
+import com.bank.App;
+
 import atlantafx.base.theme.Styles;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,9 +35,9 @@ public class LoginController {
             // make the border red
             // var tf2 = new TextField("Text");
             System.out.println("username must be more than 4");
+            return;
         }
-        if (password.length() < 6) {
-        }
+        App.navigator.pushFXML("dashboard");
     }
 
     @FXML
@@ -43,10 +45,11 @@ public class LoginController {
         if (this.username.getLength() < 5) {
             // make the border red
             this.username.pseudoClassStateChanged(Styles.STATE_DANGER, true);
-        } else {
-            this.username.pseudoClassStateChanged(Styles.STATE_SUCCESS, true);
-            this.username.pseudoClassStateChanged(Styles.STATE_DANGER, false);
+            return;
         }
+        this.username.pseudoClassStateChanged(Styles.STATE_SUCCESS, true);
+        this.username.pseudoClassStateChanged(Styles.STATE_DANGER, false);
+
     }
 
     @FXML
@@ -54,9 +57,10 @@ public class LoginController {
         if (this.password.getLength() < 5) {
             // make the border red
             this.password.pseudoClassStateChanged(Styles.STATE_DANGER, true);
-        } else {
-            this.password.pseudoClassStateChanged(Styles.STATE_SUCCESS, true);
-            this.password.pseudoClassStateChanged(Styles.STATE_DANGER, false);
+            return;
         }
+        this.password.pseudoClassStateChanged(Styles.STATE_SUCCESS, true);
+        this.password.pseudoClassStateChanged(Styles.STATE_DANGER, false);
+
     }
 }

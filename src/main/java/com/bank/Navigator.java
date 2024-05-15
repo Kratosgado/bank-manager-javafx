@@ -29,14 +29,18 @@ public class Navigator {
 
     public Navigator(Stage stage) {
         this.stage = stage;
+        this.stage.setWidth(WIDTH);
+        this.stage.setHeight(HEIGHT);
+    }
+
+    private Screen getCurrentScreen() {
+        return screenStack.peek();
     }
 
     public void showCurrentScreen() {
         Navigator.Screen currentScreen = this.getCurrentScreen();
         stage.setScene(currentScreen.scene);
         stage.setTitle(currentScreen.name);
-        stage.setWidth(WIDTH);
-        stage.setHeight(HEIGHT);
         stage.show();
     }
 
@@ -49,10 +53,6 @@ public class Navigator {
     public void popScreen() {
         screenStack.pop();
         this.showCurrentScreen();
-    }
-
-    private Screen getCurrentScreen() {
-        return screenStack.peek();
     }
 
     public void pushReplacement(String fxml) {
@@ -76,6 +76,23 @@ public class Navigator {
             final Scene scene = fxmlLoader.load();
             final Screen screen = new Screen(fxml, scene);
             screenStack.push(screen);
+            this.showCurrentScreen();
+        } catch (Exception e) {
+            System.err.println(e.getLocalizedMessage());
+        }
+    }
+
+    public void changeStage(String fxml) {
+        final FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        try {
+            final Scene scene = fxmlLoader.load();
+            final Screen screen = new Screen(fxml, scene);
+            this.screenStack.clear();
+            this.screenStack.push(screen);
+            Stage newStage = new Stage();
+            newStage.setWidth(WIDTH);
+            newStage.setHeight(HEIGHT);
+            this.stage = newStage;
             this.showCurrentScreen();
         } catch (Exception e) {
             System.err.println(e.getLocalizedMessage());
