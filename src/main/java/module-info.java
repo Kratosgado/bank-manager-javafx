@@ -6,6 +6,7 @@ module com.bank {
 
     opens com.bank to javafx.fxml;
     opens com.bank.auth to javafx.fxml;
+    opens com.bank.dashboard to javafx.fxml;
 
     exports com.bank;
 }

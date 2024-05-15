@@ -1,10 +1,12 @@
 package com.bank.auth;
 
+import atlantafx.base.theme.Styles;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
 public class LoginController {
 
@@ -25,7 +27,36 @@ public class LoginController {
 
     @FXML
     void handleLogin(ActionEvent event) {
-
+        final String username = this.username.getText();
+        final String password = this.password.getText();
+        if (username.length() < 5) {
+            // make the border red
+            // var tf2 = new TextField("Text");
+            System.out.println("username must be more than 4");
+        }
+        if (password.length() < 6) {
+        }
     }
 
+    @FXML
+    void validateUsername(KeyEvent event) {
+        if (this.username.getLength() < 5) {
+            // make the border red
+            this.username.pseudoClassStateChanged(Styles.STATE_DANGER, true);
+        } else {
+            this.username.pseudoClassStateChanged(Styles.STATE_SUCCESS, true);
+            this.username.pseudoClassStateChanged(Styles.STATE_DANGER, false);
+        }
+    }
+
+    @FXML
+    void validatePassword(KeyEvent event) {
+        if (this.password.getLength() < 5) {
+            // make the border red
+            this.password.pseudoClassStateChanged(Styles.STATE_DANGER, true);
+        } else {
+            this.password.pseudoClassStateChanged(Styles.STATE_SUCCESS, true);
+            this.password.pseudoClassStateChanged(Styles.STATE_DANGER, false);
+        }
+    }
 }
