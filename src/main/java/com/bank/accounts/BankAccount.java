@@ -21,9 +21,9 @@ public class BankAccount {
         this.clients = new HashMap<>();
     }
 
-    public int addAccount(int init_deposit) {
+    public int addAccount(String name, int init_deposit) {
         this.numOfCustomerAccounts++;
-        CustomerAccount c = new CustomerAccount(this.numOfCustomerAccounts);
+        CustomerAccount c = new CustomerAccount(name, this.numOfCustomerAccounts);
         c.makeDeposite(init_deposit);
         this.moneyInAccount += init_deposit;
         this.clients.put(this.numOfCustomerAccounts, c);
@@ -51,7 +51,7 @@ public class BankAccount {
             account.makeDeposite(amt);
             this.moneyInAccount += amt;
             this.updateCustomerAccount(account);
-            System.out.println("Deposit of " + amt + "made successfully");
+            System.out.println("Deposit of " + amt + "made successfully to " + account.getName());
 
         } catch (Error e) {
             System.err.println("Error making deposit: " + e);

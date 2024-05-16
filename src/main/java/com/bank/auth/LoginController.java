@@ -31,7 +31,7 @@ public class LoginController {
     void handleLogin(ActionEvent event) {
         final String username = this.username.getText();
         final String password = this.password.getText();
-        if (username.length() < 5) {
+        if (username.length() < 5 || password.length() < 6) {
             // make the border red
             // var tf2 = new TextField("Text");
             System.out.println("username must be more than 4");

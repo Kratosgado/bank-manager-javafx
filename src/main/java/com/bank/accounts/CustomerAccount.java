@@ -2,15 +2,21 @@ package com.bank.accounts;
 
 public class CustomerAccount {
     private final int accountNumber;
+    private String name;
     private double balance;
 
-    public CustomerAccount(int accountNumber) {
+    public CustomerAccount(String name, int accountNumber) {
         this.accountNumber = accountNumber;
+        this.name = name;
         this.balance = 0.0;
     }
 
     public int getAccountNumber() {
         return this.accountNumber;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public double getBalance() {

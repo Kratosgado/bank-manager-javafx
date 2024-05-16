@@ -1,12 +1,9 @@
 package com.bank;
 
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Stack;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class Navigator {
