@@ -1,8 +1,13 @@
 package com.bank.accounts;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 import com.bank.accounts.Transaction.TransactionType;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class BankAccount {
     @Override
@@ -40,7 +45,7 @@ public class BankAccount {
         final int transactionId = Double.valueOf(Math.random() * 1000000000).intValue();
         final Transaction transaction = new Transaction(transactionId, name, accountNumber,
                 amount, type);
-                
+
         // record tansaction
         this.transactions.put((Integer) transactionId, transaction);
         return transaction;
@@ -91,7 +96,30 @@ public class BankAccount {
         }
     }
 
+    public ObservableList<Transaction> getTransactions() {
+        return FXCollections.observableArrayList(this.transactions.values());
+    }
+
+    public Transaction geTransaction(int id) {
+        return this.transactions.get((Integer) id);
+    }
+
     public int getNumOfCustomerAccount() {
         return this.numOfCustomerAccounts;
+    }
+
+    // create a public function to populate bankaccount with customer accounts and
+    // transactions
+    public void populateBankAccount() {
+        this.addAccount("John Doe", 1000);
+        this.addAccount("Jane Doe", 2000);
+        this.addAccount("John Smith", 3000);
+        this.addAccount("Jane Smith", 4000);
+        this.addAccount("John Doe", 5000);
+        this.addAccount("Jane Doe", 6000);
+        this.addAccount("John Smith", 7000);
+        this.addAccount("Jane Smith", 8000);
+        this.addAccount("John Doe", 9000);
+        this.addAccount("Jane Doe", 10000);
     }
 }

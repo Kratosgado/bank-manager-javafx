@@ -1,9 +1,9 @@
 package com.bank.accounts;
 
 public class Transaction {
-    private final int transactionId;
+    private final Integer transactionId;
     private final String name;
-    private final int accountNumber;
+    private final Integer accountNumber;
     private final double amount;
     private final TransactionType type;
 
@@ -21,7 +21,7 @@ public class Transaction {
         this.type = type;
     }
 
-    public int getTransactionId() {
+    public Integer getTransactionId() {
         return this.transactionId;
     }
 
@@ -29,11 +29,11 @@ public class Transaction {
         return this.name;
     }
 
-    public int getAccountNumber() {
+    public Integer getAccountNumber() {
         return this.accountNumber;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return this.amount;
     }
 

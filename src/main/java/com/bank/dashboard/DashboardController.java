@@ -1,59 +1,70 @@
-/**
- * Sample Skeleton for 'dashboard.fxml' Controller Class
- */
-
 package com.bank.dashboard;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import com.bank.accounts.BankAccount;
 import com.bank.accounts.Transaction;
+import com.bank.accounts.Transaction.TransactionType;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 public class DashboardController {
 
-    @FXML // ResourceBundle that was given to the FXMLLoader
-    private ResourceBundle resources;
+    @FXML
+    private TableColumn<Transaction, String> accountNumber;
 
-    @FXML // URL location of the FXML file that was given to the FXMLLoader
-    private URL location;
+    @FXML
+    private TableColumn<Transaction, String> transactionId;
 
-    @FXML // fx:id="accountTable"
-    private TableView<Transaction> accountTable; // Value injected by FXMLLoader
+    @FXML
+    private TableColumn<Transaction, String> type;
 
-    @FXML // fx:id="addAccount"
-    private MenuItem addAccount; // Value injected by FXMLLoader
+    @FXML
+    private TableColumn<Transaction, String> name;
 
-    @FXML // fx:id="hBox"
-    private HBox hBox; // Value injected by FXMLLoader
+    @FXML
+    private TableColumn<Transaction, Double> amount;
 
-    @FXML // fx:id="makeDeposit"
-    private MenuItem makeDeposit; // Value injected by FXMLLoader
+    @FXML
+    private TableView<Transaction> accountTable;
 
-    @FXML // fx:id="makeWithdrawal"
-    private MenuItem makeWithdrawal; // Value injected by FXMLLoader
+    @FXML
+    private MenuItem addAccount;
 
-    @FXML // fx:id="scene"
-    private Scene scene; // Value injected by FXMLLoader
+    @FXML
+    private HBox hBox;
 
-    @FXML // fx:id="updateAccount"
-    private MenuItem updateAccount; // Value injected by FXMLLoader
+    @FXML
+    private MenuItem makeDeposit;
 
-    @FXML // fx:id="vBox"
-    private VBox vBox; // Value injected by FXMLLoader
+    @FXML
+    private MenuItem makeWithdrawal;
+
+    @FXML
+    private Scene scene;
+
+    @FXML
+    private MenuItem updateAccount;
 
     private BankAccount bankAccount;
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         this.bankAccount = new BankAccount();
-    }
+        this.bankAccount.populateBankAccount();
 
+        this.amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        this.name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.transactionId.setCellValueFactory(new PropertyValueFactory<>("transactionId"));
+        this.accountNumber.setCellValueFactory(new PropertyValueFactory<>("accountNumber"));
+        this.type.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+        accountTable.setItems(this.bankAccount.getTransactions());
+        // this.accountTable.setFa
+    }
 }

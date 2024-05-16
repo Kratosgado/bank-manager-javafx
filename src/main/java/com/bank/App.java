@@ -16,6 +16,7 @@ public class App extends Application {
         // Application.setUserAgentStylesheet(new
         // PrimerLight().getUserAgentStylesheet());
         Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
+        
 
         navigator = new Navigator(primaryStage);
         this.initializeApp();
