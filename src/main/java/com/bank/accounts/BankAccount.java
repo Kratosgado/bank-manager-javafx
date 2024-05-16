@@ -2,6 +2,8 @@ package com.bank.accounts;
 
 import java.util.HashMap;
 
+import com.bank.accounts.Transaction.TransactionType;
+
 public class BankAccount {
     @Override
     public String toString() {
@@ -13,15 +15,17 @@ public class BankAccount {
     private double moneyInAccount;
     private double moneyOutAccount;
     private final HashMap<Integer, CustomerAccount> clients;
+    private final HashMap<Integer, Transaction> transactions;
 
     public BankAccount() {
         this.numOfCustomerAccounts = 0;
         this.moneyInAccount = 0;
         this.moneyOutAccount = 0;
         this.clients = new HashMap<>();
+        this.transactions = new HashMap<>();
     }
 
-    public int addAccount(String name, int init_deposit) {
+    public Transaction addAccount(String name, int init_deposit) {
         this.numOfCustomerAccounts++;
         CustomerAccount c = new CustomerAccount(name, this.numOfCustomerAccounts);
         c.makeDeposite(init_deposit);
@@ -29,7 +33,17 @@ public class BankAccount {
         this.clients.put(this.numOfCustomerAccounts, c);
         System.out.println("account with id " + this.numOfCustomerAccounts + " created successfully");
 
-        return this.numOfCustomerAccounts;
+        return this.recordTransaction(name, c.getAccountNumber(), init_deposit, TransactionType.INITIAL_DEPOSIT);
+    }
+
+    private Transaction recordTransaction(String name, int accountNumber, double amount, TransactionType type) {
+        final int transactionId = Double.valueOf(Math.random() * 1000000000).intValue();
+        final Transaction transaction = new Transaction(transactionId, name, accountNumber,
+                amount, type);
+                
+        // record tansaction
+        this.transactions.put((Integer) transactionId, transaction);
+        return transaction;
     }
 
     public CustomerAccount getCustomerAccount(int accountNumber) throws Error {
@@ -45,30 +59,35 @@ public class BankAccount {
         this.clients.put(account.getAccountNumber(), account);
     }
 
-    public void makeDeposite(int accountNumber, double amt) throws Error {
+    public Transaction makeDeposite(int accountNumber, double amt) throws Error {
         try {
             var account = getCustomerAccount(accountNumber);
             account.makeDeposite(amt);
             this.moneyInAccount += amt;
             this.updateCustomerAccount(account);
+
             System.out.println("Deposit of " + amt + "made successfully to " + account.getName());
+            return this.recordTransaction(account.getName(), accountNumber, amt, TransactionType.DEPOSIT);
 
         } catch (Error e) {
             System.err.println("Error making deposit: " + e);
         }
+        return null;
     }
 
-    public void makeWithdrawal(int accountNumber, int amt) throws Error {
+    public Transaction makeWithdrawal(int accountNumber, int amt) throws Error {
         try {
             var account = this.getCustomerAccount(accountNumber);
             account.makeWithdrawal(amt);
             this.moneyInAccount -= amt;
             this.moneyOutAccount += amt;
             this.updateCustomerAccount(account);
+
             System.out.println("Withdrawal of " + amt + " made successfully");
+            return this.recordTransaction(account.getName(), accountNumber, amt, TransactionType.WITHDRAWAL);
         } catch (ArithmeticException e) {
             System.err.println("Error making withdrawal: " + e.getMessage());
-
+            return null;
         }
     }
 

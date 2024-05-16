@@ -40,7 +40,6 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -86,18 +85,14 @@
                   </MenuButton>
                </children>
             </HBox>
-          <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <TableView fx:id="accDashboard" tableMenuButtonVisible="true">
-                    <columns>
-                      <TableColumn prefWidth="200.0" text="Name" />
-                      <TableColumn prefWidth="100.0" text="Acc. No" />
-                        <TableColumn prefWidth="150.0" text="Transaction Type" />
-                        <TableColumn prefWidth="100.0" text="Amount" />
-                    </columns>
-                  </TableView>
-               </children>
-          </AnchorPane>
+            <TableView fx:id="accountTable" tableMenuButtonVisible="true">
+              <columns>
+                <TableColumn prefWidth="200.0" text="Name" />
+                <TableColumn prefWidth="100.0" text="Acc. No" />
+                  <TableColumn prefWidth="150.0" text="Transaction Type" />
+                  <TableColumn prefWidth="100.0" text="Amount" />
+              </columns>
+            </TableView>
         </children>
       </VBox>
    </root>
