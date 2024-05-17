@@ -1,17 +1,20 @@
 package com.bank.dashboard;
 
+import java.io.IOException;
+
+import com.bank.App;
 import com.bank.accounts.BankAccount;
 import com.bank.accounts.Transaction;
-import com.bank.accounts.Transaction.TransactionType;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 public class DashboardController {
 
@@ -66,5 +69,32 @@ public class DashboardController {
 
         accountTable.setItems(this.bankAccount.getTransactions());
         // this.accountTable.setFa
+
+        this.addAccount.setOnAction(e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("addAccount.fxml"));
+            try {
+                final Scene scene = fxmlLoader.load();
+                AddAccountController controller = fxmlLoader.getController();
+
+                controller.depositButton.setOnAction(event -> {
+                    var text = controller.getValues();
+                    if (text != null) {
+                        System.out.println(text);
+                    }
+                });
+
+                Stage popupStage = new Stage();
+                popupStage.setTitle("Make a deposi");
+                popupStage.setScene(scene);
+                popupStage.showAndWait();
+
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+
+        });
+
     }
+
 }
