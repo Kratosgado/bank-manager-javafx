@@ -30,6 +30,11 @@ public class DatabaseHelper {
         }
     }
 
+    /// function to record transaction to sqlite database
+    /**
+     * @param transaction
+     * @throws Exception
+     */
     public void insertTransaction(Transaction transaction) throws Exception {
         try (
                 Connection conn = DriverManager.getConnection(URL);
@@ -43,8 +48,49 @@ public class DatabaseHelper {
             stmt.close();
             conn.commit();
             conn.close();
+            System.out.println("Records created successfully");
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            throw new Exception("500");
+        }
+    }
+
+    public void saveBankAccount(BankAccount bankAccount) {
+        try (Connection conn = DriverManager.getConnection(URL)) {
+            conn.setAutoCommit(false);
+
+            try (
+                    PreparedStatement accountStmt = conn.prepareStatement(
+                            "INSERT OR REPLACE INTO accounts(accountNumber, name, balance) VALUES (?,?,?)");
+                    PreparedStatement transactionStmt = conn.prepareStatement(
+                            "INSERT OR REPLACE INTO transactions (transactionId, accountNumber, amount, type, name) VALUES (?, ?, ?, ?, ?)")) {
+                for (CustomerAccount account : bankAccount.getCustomerAccounts().values()) {
+                    accountStmt.setInt(1, account.getAccountNumber());
+                    accountStmt.setString(2, account.getName());
+                    accountStmt.setDouble(3, account.getBalance());
+                    accountStmt.addBatch();
+                }
+                accountStmt.executeBatch();
+
+                for (Transaction transaction : bankAccount.getTransactions()) {
+                    transactionStmt.setInt(1, transaction.getTransactionId());
+                    transactionStmt.setInt(2, transaction.getAccountNumber());
+                    transactionStmt.setDouble(3, transaction.getAmount());
+                    transactionStmt.setString(4, transaction.getType().name());
+                    transactionStmt.setString(5, transaction.getName());
+                    transactionStmt.addBatch();
+                }
+                transactionStmt.executeBatch();
+
+                conn.commit();
+            } catch (SQLException e) {
+                // TODO: handle exception
+                conn.rollback();
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
         }
     }
 }

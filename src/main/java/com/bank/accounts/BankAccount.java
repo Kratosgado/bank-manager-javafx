@@ -3,6 +3,8 @@ package com.bank.accounts;
 import com.bank.accounts.Transaction.TransactionType;
 
 import java.util.HashMap;
+import java.util.Map;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -28,11 +30,6 @@ public class BankAccount {
         database = new DatabaseHelper();
     }
 
-    private void readObject(java.io.ObjectInputStream stream) throws IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-        transactions = FXCollections.observableArrayList();
-    }
-
     @Override
     public String toString() {
         return "BankAccount [numOfCustomerAccounts=" + numOfCustomerAccounts + ", moneyInAccount=" + moneyInAccount
@@ -51,13 +48,19 @@ public class BankAccount {
     }
 
     private Transaction recordTransaction(String name, int accountNumber, double amount, TransactionType type) {
-        final int transactionId = Double.valueOf(Math.random() * 1000000000).intValue();
-        final Transaction transaction = new Transaction(transactionId, name, accountNumber,
-                amount, type);
+        try {
+            final int transactionId = Double.valueOf(Math.random() * 1000000000).intValue();
+            final Transaction transaction = new Transaction(transactionId, name, accountNumber,
+                    amount, type);
 
-        // record tansaction
-        this.transactions.add(transaction);
-        return transaction;
+            // record tansaction
+            this.transactions.add(transaction);
+            this.database.insertTransaction(transaction);
+            return transaction;
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
     }
 
     public CustomerAccount getCustomerAccount(int accountNumber) throws Error {
@@ -67,6 +70,10 @@ public class BankAccount {
             return (CustomerAccount) foundAccount;
         }
         throw new Error("No account found for " + accountNumber);
+    }
+
+    public Map<Integer, CustomerAccount> getCustomerAccounts() {
+        return clients;
     }
 
     public void updateCustomerAccount(CustomerAccount account) {
@@ -109,7 +116,7 @@ public class BankAccount {
         return this.transactions;
     }
 
-    public Transaction geTransaction(int id) {
+    public Transaction getTransaction(int id) {
         return this.transactions.get((Integer) id);
     }
 
