@@ -70,23 +70,24 @@ public class DashboardController {
         accountTable.setItems(this.bankAccount.getTransactions());
         // this.accountTable.setFa
 
-        // handle making deposit
-        this.makeDeposit.setOnAction(e -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("deposit.fxml"));
+        this.addAccount.setOnAction(e -> {
+            Stage popupStage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("addAccount.fxml"));
             try {
                 final Scene scene = fxmlLoader.load();
-                MakeDepositController controller = fxmlLoader.getController();
+                AddAccountController controller = fxmlLoader.getController();
 
-                controller.depositButton.setOnAction(event -> {
+                controller.getButton().setOnAction(event -> {
                     var addPair = controller.getValues();
                     if (addPair != null) {
-                        this.bankAccount.makeDeposite(addPair.getKey(), addPair.getValue());
+                        this.bankAccount.addAccount(addPair.getKey(), addPair.getValue());
                         System.out.println(addPair);
+                        popupStage.close();
                     }
+
                 });
 
-                Stage popupStage = new Stage();
-                popupStage.setTitle("Make a deposi");
+                popupStage.setTitle("Make a withdrawal");
                 popupStage.setScene(scene);
                 popupStage.showAndWait();
 
@@ -94,7 +95,58 @@ public class DashboardController {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
+        });
+        // handle making deposit
+        this.makeDeposit.setOnAction(e -> {
+            Stage popupStage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("deposit.fxml"));
+            try {
+                final Scene scene = fxmlLoader.load();
+                DepositController controller = fxmlLoader.getController();
 
+                controller.getButton().setOnAction(event -> {
+                    var addPair = controller.getValues();
+                    if (addPair != null) {
+                        this.bankAccount.makeDeposite(addPair.getKey(), addPair.getValue());
+                        System.out.println(addPair);
+                        popupStage.close();
+                    }
+                });
+
+                popupStage.setTitle("Make a deposit");
+                popupStage.setScene(scene);
+                popupStage.showAndWait();
+
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        });
+        this.makeWithdrawal.setOnAction(e -> {
+            Stage popupStage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("withdrawal.fxml"));
+            try {
+                final Scene scene = fxmlLoader.load();
+                WithdrawalController controller = fxmlLoader.getController();
+
+                controller.getButton().setOnAction(event -> {
+                    var addPair = controller.getValues();
+                    if (addPair != null) {
+                        this.bankAccount.makeWithdrawal(addPair.getKey(), addPair.getValue());
+                        System.out.println(addPair);
+                        popupStage.close();
+                    }
+
+                });
+
+                popupStage.setTitle("Make a withdrawal");
+                popupStage.setScene(scene);
+                popupStage.showAndWait();
+
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         });
 
     }

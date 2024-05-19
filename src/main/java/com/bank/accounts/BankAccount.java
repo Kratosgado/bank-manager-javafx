@@ -28,7 +28,7 @@ public class BankAccount {
         this.transactions = FXCollections.observableArrayList();
     }
 
-    public Transaction addAccount(String name, int init_deposit) {
+    public Transaction addAccount(String name, double init_deposit) {
         this.numOfCustomerAccounts++;
         CustomerAccount c = new CustomerAccount(name, this.numOfCustomerAccounts);
         c.makeDeposite(init_deposit);
@@ -77,7 +77,7 @@ public class BankAccount {
         }
         return null;
     }
-    public Transaction makeWithdrawal(int accountNumber, int amt) throws Error {
+    public Transaction makeWithdrawal(int accountNumber, double amt) throws Error {
         try {
             var account = this.getCustomerAccount(accountNumber);
             account.makeWithdrawal(amt);

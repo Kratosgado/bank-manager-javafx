@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.util.Pair;
 
-public class MakeDepositController {
+public class DepositController {
 
     @FXML
     private TextField accountNumberField;
@@ -14,7 +14,11 @@ public class MakeDepositController {
     private TextField amountField;
 
     @FXML
-    public Button depositButton;
+    private Button depositButton;
+
+    public Button getButton() {
+        return this.depositButton;
+    }
 
     public Pair<Integer, Double> getValues() {
         final Integer accountNumber = Integer.parseInt(this.accountNumberField.getText());
@@ -24,6 +28,5 @@ public class MakeDepositController {
         }
         return null;
     }
-    
 
 }
