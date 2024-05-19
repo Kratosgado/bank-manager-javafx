@@ -3,6 +3,8 @@ module com.bank {
     requires transitive javafx.graphics;
     requires javafx.fxml;
     requires atlantafx.base;
+    requires java.sql;
+    // requires sqlite.jdbc;
 
     opens com.bank to javafx.fxml;
     opens com.bank.auth to javafx.fxml;

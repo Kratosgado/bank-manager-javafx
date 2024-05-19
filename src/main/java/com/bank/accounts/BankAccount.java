@@ -1,24 +1,21 @@
 package com.bank.accounts;
 
-import java.util.HashMap;
-
 import com.bank.accounts.Transaction.TransactionType;
 
+import java.util.HashMap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.IOException;
+
 public class BankAccount {
-    @Override
-    public String toString() {
-        return "BankAccount [numOfCustomerAccounts=" + numOfCustomerAccounts + ", moneyInAccount=" + moneyInAccount
-                + ", moneyOutAccount=" + moneyOutAccount + ", clients=" + clients + "]";
-    }
+    private DatabaseHelper database;
 
     private int numOfCustomerAccounts;
     private double moneyInAccount;
     private double moneyOutAccount;
     private final HashMap<Integer, CustomerAccount> clients;
-    private final ObservableList<Transaction> transactions;
+    private ObservableList<Transaction> transactions;
 
     public BankAccount() {
         this.numOfCustomerAccounts = 0;
@@ -26,6 +23,20 @@ public class BankAccount {
         this.moneyOutAccount = 0;
         this.clients = new HashMap<>();
         this.transactions = FXCollections.observableArrayList();
+
+        // establish database connection
+        database = new DatabaseHelper();
+    }
+
+    private void readObject(java.io.ObjectInputStream stream) throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        transactions = FXCollections.observableArrayList();
+    }
+
+    @Override
+    public String toString() {
+        return "BankAccount [numOfCustomerAccounts=" + numOfCustomerAccounts + ", moneyInAccount=" + moneyInAccount
+                + ", moneyOutAccount=" + moneyOutAccount + ", clients=" + clients + "]";
     }
 
     public Transaction addAccount(String name, double init_deposit) {
@@ -45,7 +56,7 @@ public class BankAccount {
                 amount, type);
 
         // record tansaction
-        this.transactions.add( transaction);
+        this.transactions.add(transaction);
         return transaction;
     }
 
@@ -77,6 +88,7 @@ public class BankAccount {
         }
         return null;
     }
+
     public Transaction makeWithdrawal(int accountNumber, double amt) throws Error {
         try {
             var account = this.getCustomerAccount(accountNumber);
