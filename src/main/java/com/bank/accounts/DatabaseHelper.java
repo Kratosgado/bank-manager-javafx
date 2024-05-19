@@ -2,6 +2,8 @@ package com.bank.accounts;
 
 import java.sql.*;
 
+import com.bank.accounts.Transaction.TransactionType;
+
 public class DatabaseHelper {
     private static final String URL = "jdbc:sqlite:bank.db";
 
@@ -30,30 +32,30 @@ public class DatabaseHelper {
         }
     }
 
-    /// function to record transaction to sqlite database
-    /**
-     * @param transaction
-     * @throws Exception
-     */
-    public void insertTransaction(Transaction transaction) throws Exception {
-        try (
-                Connection conn = DriverManager.getConnection(URL);
-                Statement stmt = conn.createStatement()) {
-            conn.setAutoCommit(false);
-            System.out.println("Opened db succ");
-            String sql = "INSERT INTO transactions (transactionId, accountNumber, amount, type, name)" +
-                    "VALUES (" + transaction.getTransactionId() + ", " + transaction.getAccountNumber() +
-                    ", " + transaction.getAmount() + ", " + transaction.getType() + ", " + transaction.getName() + ");";
-            stmt.executeUpdate(sql);
-            stmt.close();
-            conn.commit();
-            conn.close();
-            System.out.println("Records created successfully");
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            throw new Exception("500");
-        }
-    }
+    // /// function to record transaction to sqlite database
+    // /**
+    //  * @param transaction
+    //  * @throws Exception
+    //  */
+    // public void insertTransaction(Transaction transaction) throws Exception {
+    //     try (
+    //             Connection conn = DriverManager.getConnection(URL);
+    //             Statement stmt = conn.createStatement()) {
+    //         conn.setAutoCommit(false);
+    //         System.out.println("Opened db succ");
+    //         String sql = "INSERT INTO transactions (transactionId, accountNumber, amount, type, name)" +
+    //                 "VALUES (" + transaction.getTransactionId() + ", " + transaction.getAccountNumber() +
+    //                 ", " + transaction.getAmount() + ", " + transaction.getType() + ", " + transaction.getName() + ");";
+    //         stmt.executeUpdate(sql);
+    //         stmt.close();
+    //         conn.commit();
+    //         conn.close();
+    //         System.out.println("Records created successfully");
+    //     } catch (Exception e) {
+    //         System.err.println(e.getClass().getName() + ": " + e.getMessage());
+    //         throw new Exception("500");
+    //     }
+    // }
 
     public void saveBankAccount(BankAccount bankAccount) {
         try (Connection conn = DriverManager.getConnection(URL)) {
@@ -92,5 +94,42 @@ public class DatabaseHelper {
             // TODO: handle exception
             e.printStackTrace();
         }
+    }
+
+    public BankAccount loadBankAccount() {
+        BankAccount bankAccount = new BankAccount();
+        try (Connection conn = DriverManager.getConnection(URL);
+                Statement stmt = conn.createStatement()) {
+            
+            ResultSet res = stmt.executeQuery("SELECT * FROM accounts");
+            while (res.next()) {
+                int accountNumber = res.getInt("accountNumber");
+                String name = res.getString("name");
+                double balance = res.getDouble("balance");
+
+                CustomerAccount account = new CustomerAccount(name, accountNumber);
+                account.makeDeposite(balance);
+                // TODO: load customer account
+            }
+            res = stmt.executeQuery("SELECT * FROM transactions");
+            while (res.next()) {
+                int transactionId = res.getInt("transactionId");
+                int accountNumber = res.getInt("accountNumber");
+                double amount = res.getDouble("amount");
+                String type = res.getString("type");
+                String name = res.getString("name");
+
+                Transaction transaction = new Transaction(transactionId, name, accountNumber, amount,
+                        TransactionType.valueOf(type));
+                // TODO: load transaction account
+                
+                // bankAccount.(transaction);
+            }
+            
+        } catch (SQLException e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return bankAccount;
     }
 }
