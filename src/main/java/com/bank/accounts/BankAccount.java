@@ -71,7 +71,7 @@ public class BankAccount {
             this.moneyInAccount += amt;
             this.updateCustomerAccount(account);
 
-            System.out.println("Deposit of " + amt + "made successfully to " + account.getName());
+            System.out.println("Deposit of " + amt + " made successfully to " + account.getName());
             return this.recordTransaction(account.getName(), accountNumber, amt, TransactionType.DEPOSIT);
 
         } catch (Error e) {

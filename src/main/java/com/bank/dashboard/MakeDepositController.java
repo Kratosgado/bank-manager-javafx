@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.util.Pair;
 
-public class AddAccountController {
+public class MakeDepositController {
 
     @FXML
     private TextField accountNumberField;

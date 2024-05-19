@@ -70,16 +70,18 @@ public class DashboardController {
         accountTable.setItems(this.bankAccount.getTransactions());
         // this.accountTable.setFa
 
-        this.addAccount.setOnAction(e -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("addAccount.fxml"));
+        // handle making deposit
+        this.makeDeposit.setOnAction(e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("deposit.fxml"));
             try {
                 final Scene scene = fxmlLoader.load();
-                AddAccountController controller = fxmlLoader.getController();
+                MakeDepositController controller = fxmlLoader.getController();
 
                 controller.depositButton.setOnAction(event -> {
-                    var text = controller.getValues();
-                    if (text != null) {
-                        System.out.println(text);
+                    var addPair = controller.getValues();
+                    if (addPair != null) {
+                        this.bankAccount.makeDeposite(addPair.getKey(), addPair.getValue());
+                        System.out.println(addPair);
                     }
                 });
 
