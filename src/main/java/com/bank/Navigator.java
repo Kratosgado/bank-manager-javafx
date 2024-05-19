@@ -79,6 +79,10 @@ public class Navigator {
         }
     }
 
+    public Stage getStage() {
+        return this.stage;
+    }
+
     public void changeStage(String fxml) {
         final FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         try {

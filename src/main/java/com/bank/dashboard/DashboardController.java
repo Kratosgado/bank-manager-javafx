@@ -59,7 +59,7 @@ public class DashboardController {
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         this.bankAccount = new BankAccount();
-        this.bankAccount.populateBankAccount();
+        this.bankAccount = this.bankAccount.loadDatabase();
 
         this.amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
         this.name.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -80,7 +80,7 @@ public class DashboardController {
                 controller.getButton().setOnAction(event -> {
                     var addPair = controller.getValues();
                     if (addPair != null) {
-                        this.bankAccount.addAccount(addPair.getKey(), addPair.getValue());
+                        this.bankAccount.createCustomerAccount(addPair.getKey(), addPair.getValue());
                         System.out.println(addPair);
                         popupStage.close();
                     }
@@ -149,6 +149,9 @@ public class DashboardController {
             }
         });
 
+        App.navigator.getStage().setOnCloseRequest(e -> {
+            this.bankAccount.saveDatabase();
+        });
     }
 
 }

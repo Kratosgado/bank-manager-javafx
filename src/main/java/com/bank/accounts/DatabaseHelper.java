@@ -109,7 +109,7 @@ public class DatabaseHelper {
 
                 CustomerAccount account = new CustomerAccount(name, accountNumber);
                 account.makeDeposite(balance);
-                // TODO: load customer account
+                bankAccount.addCustomerAccount(account);
             }
             res = stmt.executeQuery("SELECT * FROM transactions");
             while (res.next()) {
@@ -121,9 +121,8 @@ public class DatabaseHelper {
 
                 Transaction transaction = new Transaction(transactionId, name, accountNumber, amount,
                         TransactionType.valueOf(type));
-                // TODO: load transaction account
                 
-                // bankAccount.(transaction);
+                bankAccount.addTransaction(transaction);
             }
             
         } catch (SQLException e) {

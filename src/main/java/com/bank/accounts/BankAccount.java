@@ -30,13 +30,26 @@ public class BankAccount {
         database = new DatabaseHelper();
     }
 
+    public BankAccount loadDatabase() {
+        return this.database.loadBankAccount();
+    }
+
+    public void saveDatabase() {
+        try {
+            this.database.saveBankAccount(this);
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public String toString() {
         return "BankAccount [numOfCustomerAccounts=" + numOfCustomerAccounts + ", moneyInAccount=" + moneyInAccount
                 + ", moneyOutAccount=" + moneyOutAccount + ", clients=" + clients + "]";
     }
 
-    public Transaction addAccount(String name, double init_deposit) {
+    public Transaction createCustomerAccount(String name, double init_deposit) {
         this.numOfCustomerAccounts++;
         CustomerAccount c = new CustomerAccount(name, this.numOfCustomerAccounts);
         c.makeDeposite(init_deposit);
@@ -55,12 +68,20 @@ public class BankAccount {
 
             // record tansaction
             this.transactions.add(transaction);
-            this.database.insertTransaction(transaction);
+            // this.database.insertTransaction(transaction);
             return transaction;
         } catch (Exception e) {
             // TODO: handle exception
             return null;
         }
+    }
+
+    public void addCustomerAccount(CustomerAccount account) {
+        this.clients.put(account.getAccountNumber(), account);
+    }
+
+    public void addTransaction(Transaction transaction) {
+        this.transactions.add(transaction);
     }
 
     public CustomerAccount getCustomerAccount(int accountNumber) throws Error {
@@ -126,16 +147,5 @@ public class BankAccount {
 
     // create a public function to populate bankaccount with customer accounts and
     // transactions
-    public void populateBankAccount() {
-        this.addAccount("John Doe", 1000);
-        this.addAccount("Jane Doe", 2000);
-        this.addAccount("John Smith", 3000);
-        this.addAccount("Jane Smith", 4000);
-        this.addAccount("John Doe", 5000);
-        this.addAccount("Jane Doe", 6000);
-        this.addAccount("John Smith", 7000);
-        this.addAccount("Jane Smith", 8000);
-        this.addAccount("John Doe", 9000);
-        this.addAccount("Jane Doe", 10000);
-    }
+
 }
