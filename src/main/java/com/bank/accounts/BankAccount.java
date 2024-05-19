@@ -1,8 +1,6 @@
 package com.bank.accounts;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 
 import com.bank.accounts.Transaction.TransactionType;
 
@@ -20,14 +18,14 @@ public class BankAccount {
     private double moneyInAccount;
     private double moneyOutAccount;
     private final HashMap<Integer, CustomerAccount> clients;
-    private final HashMap<Integer, Transaction> transactions;
+    private final ObservableList<Transaction> transactions;
 
     public BankAccount() {
         this.numOfCustomerAccounts = 0;
         this.moneyInAccount = 0;
         this.moneyOutAccount = 0;
         this.clients = new HashMap<>();
-        this.transactions = new HashMap<>();
+        this.transactions = FXCollections.observableArrayList();
     }
 
     public Transaction addAccount(String name, int init_deposit) {
@@ -47,7 +45,7 @@ public class BankAccount {
                 amount, type);
 
         // record tansaction
-        this.transactions.put((Integer) transactionId, transaction);
+        this.transactions.add( transaction);
         return transaction;
     }
 
@@ -79,7 +77,6 @@ public class BankAccount {
         }
         return null;
     }
-
     public Transaction makeWithdrawal(int accountNumber, int amt) throws Error {
         try {
             var account = this.getCustomerAccount(accountNumber);
@@ -97,7 +94,7 @@ public class BankAccount {
     }
 
     public ObservableList<Transaction> getTransactions() {
-        return FXCollections.observableArrayList(this.transactions.values());
+        return this.transactions;
     }
 
     public Transaction geTransaction(int id) {
